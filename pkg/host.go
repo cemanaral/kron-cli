@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 
@@ -9,6 +8,7 @@ import (
 )
 
 const HOSTS_PATH = "/etc/kron/hosts.yaml"
+var Hosts = HostList{};
 
 type HostList []Host
 
@@ -30,8 +30,6 @@ func (hosts *HostList ) load() {
      }
 }
 
-func ExecuteLoadHost() {
-     var hosts HostList
-     hosts.load()
-     fmt.Println(hosts)
+func LoadHosts() {
+     Hosts.load()
 }

@@ -4,10 +4,15 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 */
 package main
 
-import "github.com/cemanaral/kron-cli/cmd"
-import "github.com/cemanaral/kron-cli/pkg"
+import (
+	"fmt"
+
+	"github.com/cemanaral/kron-cli/cmd"
+	"github.com/cemanaral/kron-cli/pkg"
+)
 
 func main() {
-	pkg.ExecuteLoadHost()
+	pkg.LoadHosts()
 	cmd.Execute()
+	fmt.Println(pkg.Hosts)
 }
