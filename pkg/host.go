@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 
@@ -13,10 +14,10 @@ var Hosts = HostList{};
 type HostList []Host
 
 type Host struct {
-     Id string
+     Id string `yaml:"host"`
      Address string
-	User string
-	Password string
+     User string
+     Password string
 }
 
 func (hosts *HostList ) load() {
@@ -28,6 +29,14 @@ func (hosts *HostList ) load() {
      if err2 != nil {
           log.Fatal(err2)
      }
+}
+
+func (host Host) String() string {
+     return fmt.Sprintf(`host -> %s
+address -> %s
+user -> %s
+password -> %s
+`, host.Id, host.Address, host.User, host.Password)
 }
 
 func LoadHosts() {

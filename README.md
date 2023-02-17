@@ -6,6 +6,7 @@
 ## manual
 | command | description |
 | - | - |
+| **kron** hosts | shows loaded hosts | 
 | **kron** get all | retrieve cron job information from all hosts |
 | **kron** get HOST... | retrieve cron job information from the specified hosts |
 | **kron** create all CRON_JOB | create cron job on all hosts |
