@@ -7,7 +7,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/cemanaral/kron-cli/pkg"
+	"github.com/cemanaral/kron/pkg"
 	"github.com/spf13/cobra"
 )
 

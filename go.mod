@@ -1,4 +1,4 @@
-module github.com/cemanaral/kron-cli
+module github.com/cemanaral/kron
 
 go 1.18
 
