@@ -1,4 +1,4 @@
-package pkg
+package host
 
 import (
 	"fmt"
@@ -19,6 +19,16 @@ type Host struct {
      User string `yaml:"user"`
      Password string `yaml:"password"`
      PrivateKeyPath string `yaml:"private-key"`
+}
+
+func (h Host) GetCronInformation() string {
+     if h.Password != "" {
+          fmt.Println(h.Id, "password is chosen")
+     } else if h.PrivateKeyPath != "" {
+          fmt.Println(h.Id, "private key method is chosen")
+     }
+     log.Fatalf("No valid authentication method was selected for '%s'!", h.Id)
+     return ""
 }
 
 func (hosts *HostList ) load() {

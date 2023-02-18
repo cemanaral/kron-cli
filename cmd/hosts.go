@@ -7,7 +7,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/cemanaral/kron/pkg"
+	"github.com/cemanaral/kron/pkg/host"
 	"github.com/spf13/cobra"
 )
 
@@ -22,8 +22,8 @@ var hostsCmd = &cobra.Command{
 }
 
 func printHosts(cmd *cobra.Command, args []string) {
-	fmt.Printf("Total number of hosts loaded: %d\n\n", len(pkg.Hosts))
-	for _, host := range pkg.Hosts {
+	fmt.Printf("Total number of hosts loaded: %d\n\n", len(host.Hosts))
+	for _, host := range host.Hosts {
 		fmt.Println(host)
 	}
 }
