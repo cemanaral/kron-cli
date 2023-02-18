@@ -15,9 +15,10 @@ type HostList []Host
 
 type Host struct {
      Id string `yaml:"host"`
-     Address string
-     User string
-     Password string
+     Address string `yaml:"address"`
+     User string `yaml:"user"`
+     Password string `yaml:"password"`
+     PrivateKeyPath string `yaml:"private-key"`
 }
 
 func (hosts *HostList ) load() {
@@ -36,7 +37,8 @@ func (host Host) String() string {
 address -> %s
 user -> %s
 password -> %s
-`, host.Id, host.Address, host.User, host.Password)
+private-key -> %s
+`, host.Id, host.Address, host.User, host.Password, host.PrivateKeyPath)
 }
 
 func LoadHosts() {

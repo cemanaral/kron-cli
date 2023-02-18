@@ -17,13 +17,15 @@
 | **kron** edit 'OLD_CRON_JOB' 'NEW_CRON_JOB' HOSTS... | edit cron job in specified hosts | 
 
 ## hosts file
-it is a yaml formatted file resides in `/etc/kron/hosts.yaml`
+it is a yaml formatted file that reside in `/etc/kron/hosts.yaml`.
+either password or private-key field must be specified to determine authentication method
 ### format
 ```yaml
 - host: [ an identifier string for the host ]
   address: [ domain name or ip address of the host ]
   user: [ username of the user with sudo privileges ]
-  password: [ password for that user ]
+  password: [ password for that user (optional) ]
+  private-key: [ path to the private key file (optional) ]
 ```
 
 ### example hosts.yaml file
@@ -36,7 +38,7 @@ it is a yaml formatted file resides in `/etc/kron/hosts.yaml`
 - host: Jenkins
   address: jenkins.devops
   user: ubuntu
-  password: J3Nk!nS!
+  private-key: /home/ubuntu/Downloads/ec2-machine.pem
 
 - host: k8s_bastion
   address: 172.16.1.5
