@@ -1,10 +1,11 @@
-package pkg
+package host
 
 import (
 	"fmt"
 	"io/ioutil"
 	"log"
 
+	"github.com/cemanaral/kron/pkg/sshutil"
 	"gopkg.in/yaml.v3"
 )
 
@@ -13,12 +14,27 @@ var Hosts = HostList{};
 
 type HostList []Host
 
-type Host struct {
+type HostConfig struct {
      Id string `yaml:"host"`
      Address string `yaml:"address"`
      User string `yaml:"user"`
      Password string `yaml:"password"`
      PrivateKeyPath string `yaml:"private-key"`
+}
+
+type Host struct {
+     SshConn sshutil.SshConnection
+     HostConfig
+}
+
+func (h HostConfig) GetCronInformation() string {
+     if h.Password != "" {
+          fmt.Println(h.Id, "password is chosen")
+     } else if h.PrivateKeyPath != "" {
+          fmt.Println(h.Id, "private key method is chosen")
+     }
+     log.Fatalf("No valid authentication method was selected for '%s'!", h.Id)
+     return ""
 }
 
 func (hosts *HostList ) load() {
@@ -29,6 +45,14 @@ func (hosts *HostList ) load() {
      err2 := yaml.Unmarshal(yfile, hosts)
      if err2 != nil {
           log.Fatal(err2)
+     }
+}
+
+func (h Host)determineAuthMethod() {
+     if h.Password != "" {
+          h.SshConn = sshutil.SshConnectionWithPassword{}
+     } else if h.PrivateKeyPath != "" {
+          h.SshConn = sshutil.SshConnectionWithPrivateKey{}
      }
 }
 

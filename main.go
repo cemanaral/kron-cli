@@ -6,10 +6,10 @@ package main
 
 import (
 	"github.com/cemanaral/kron/cmd"
-	"github.com/cemanaral/kron/pkg"
+	"github.com/cemanaral/kron/pkg/host"
 )
 
 func main() {
-	pkg.LoadHosts()
+	host.LoadHosts()
 	cmd.Execute()
 }
