@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/cemanaral/kron/pkg/sshutil"
 	"gopkg.in/yaml.v3"
 )
 
@@ -13,7 +14,7 @@ var Hosts = HostList{};
 
 type HostList []Host
 
-type Host struct {
+type HostConfig struct {
      Id string `yaml:"host"`
      Address string `yaml:"address"`
      User string `yaml:"user"`
@@ -21,7 +22,12 @@ type Host struct {
      PrivateKeyPath string `yaml:"private-key"`
 }
 
-func (h Host) GetCronInformation() string {
+type Host struct {
+     SshConn sshutil.SshConnection
+     HostConfig
+}
+
+func (h HostConfig) GetCronInformation() string {
      if h.Password != "" {
           fmt.Println(h.Id, "password is chosen")
      } else if h.PrivateKeyPath != "" {
@@ -39,6 +45,14 @@ func (hosts *HostList ) load() {
      err2 := yaml.Unmarshal(yfile, hosts)
      if err2 != nil {
           log.Fatal(err2)
+     }
+}
+
+func (h Host)determineAuthMethod() {
+     if h.Password != "" {
+          h.SshConn = sshutil.SshConnectionWithPassword{}
+     } else if h.PrivateKeyPath != "" {
+          h.SshConn = sshutil.SshConnectionWithPrivateKey{}
      }
 }
 
