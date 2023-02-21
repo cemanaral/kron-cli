@@ -24,7 +24,6 @@ type HostConfig struct {
 type Host struct {
 	SshConn    sshutil.SshConnection
 	HostConfig `yaml:",inline"`
-	Type       string
 }
 
 func (h HostConfig) GetCronInformation() string {
