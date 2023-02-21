@@ -47,9 +47,15 @@ func LoadHosts() {
 
 func (h *Host) determineAuthMethod() {
 	if h.Password != "" {
-		h.SshConn = sshutil.SshConnectionWithPassword{}
+		h.SshConn = sshutil.SshConnectionWithPassword{
+			Address: h.Address,
+			Password: h.Password,
+		}
 	} else if h.PrivateKeyPath != "" {
-		h.SshConn = sshutil.SshConnectionWithPrivateKey{}
+		h.SshConn = sshutil.SshConnectionWithPrivateKey{
+			Address: h.Address,
+			PrivateKeyPath: h.PrivateKeyPath,
+		}
 	}
 }
 

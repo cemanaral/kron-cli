@@ -8,6 +8,8 @@ type SshConnection interface {
 
 // SshConnectionWithPrivateKey
 type SshConnectionWithPrivateKey struct {
+	Address string
+	PrivateKeyPath string
 }
 
 func (conn SshConnectionWithPrivateKey) ExecuteCommand(command string) string {
@@ -26,6 +28,8 @@ func (conn SshConnectionWithPrivateKey) disconnect() {
 
 // SshConnectionWithPassword
 type SshConnectionWithPassword struct {
+	Address string
+	Password string
 }
 
 func (conn SshConnectionWithPassword) ExecuteCommand(command string) string {
