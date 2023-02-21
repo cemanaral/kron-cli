@@ -22,12 +22,12 @@ type HostConfig struct {
 }
 
 type Host struct {
-	sshutil.SshConnection
+	SshConn sshutil.SshConnection
 	HostConfig `yaml:",inline"`
 }
 
 func (h Host) GetCronInformation() string {
-	return h.ExecuteCommand("cat /etc/crontab")
+	return h.SshConn.ExecuteCommand("cat /etc/crontab")
 }
 
 func LoadHosts() {
