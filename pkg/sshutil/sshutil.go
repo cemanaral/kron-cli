@@ -1,15 +1,18 @@
 package sshutil
 
 type SshConnection interface {
-	executeCommand(string) string
+	ExecuteCommand(string) string
 	connect()
+	disconnect()
 }
 
 // SshConnectionWithPrivateKey
 type SshConnectionWithPrivateKey struct {
 }
 
-func (conn SshConnectionWithPrivateKey) executeCommand(command string) string {
+func (conn SshConnectionWithPrivateKey) ExecuteCommand(command string) string {
+	conn.connect()
+	defer conn.disconnect()
 	return ""
 }
 
@@ -17,14 +20,24 @@ func (conn SshConnectionWithPrivateKey) connect() {
 	return
 }
 
+func (conn SshConnectionWithPrivateKey) disconnect() {
+	return
+}
+
 // SshConnectionWithPassword
 type SshConnectionWithPassword struct {
 }
 
-func (conn SshConnectionWithPassword) executeCommand(command string) string {
+func (conn SshConnectionWithPassword) ExecuteCommand(command string) string {
+	conn.connect()
+	defer conn.disconnect()
 	return ""
 }
 
 func (conn SshConnectionWithPassword) connect() {
+	return
+}
+
+func (conn SshConnectionWithPassword) disconnect() {
 	return
 }

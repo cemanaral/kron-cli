@@ -22,18 +22,12 @@ type HostConfig struct {
 }
 
 type Host struct {
-	SshConn    sshutil.SshConnection
+	sshutil.SshConnection
 	HostConfig `yaml:",inline"`
 }
 
-func (h HostConfig) GetCronInformation() string {
-	if h.Password != "" {
-		fmt.Println(h.Id, "password is chosen")
-	} else if h.PrivateKeyPath != "" {
-		fmt.Println(h.Id, "private key method is chosen")
-	}
-	log.Fatalf("No valid authentication method was selected for '%s'!", h.Id)
-	return ""
+func (h Host) GetCronInformation() string {
+	return h.ExecuteCommand("cat /etc/crontab")
 }
 
 func LoadHosts() {
